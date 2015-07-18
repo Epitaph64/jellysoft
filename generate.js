@@ -14,14 +14,14 @@ TileState = {
 
 function generate(hardness){
 	
-	var grid = new array(24); 
+	var grid = new Array(24); 
 	
 	for(i = 0; i < 24; i++) {
-		grid[i] = new array(24);
+		grid[i] = new Array(24);
 		
 		// If you want to insert custom values, remove this for loop and hard code the values in after the i for loop ends 
 		for(j = 0; j < 24; j++) {
-			grid[i][j] = Dirt; 
+			grid[i][j] = TileState.Dirt; 
 		}
 	}
 	
@@ -31,7 +31,7 @@ function generate(hardness){
 	};
 	
 	var output = {
-		tiles : grid; 
+		tiles : grid,
 		lighteningRate : 1,
 		startPos : initialPos
 	};

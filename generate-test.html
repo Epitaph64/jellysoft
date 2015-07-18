@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Generate Test</title>
+		<script src="generate.js"></script>
+		
+	</head>
+
+	<body>
+		<h1>Example</h1>
+		<div id="tablePrint"></div>
+	</body>
+
+	<script language="javascript" type="text/javascript">
+		var myArray = generate(0).tiles; 
+		var myTable = "<table>"
+		for(i = 0; i < 24; i++){
+			myTable+="<tr>"
+			for(j = 0; j < 24; j++){
+				myTable+="<td>";
+				if(myArray[i][j] == TileState.Dirt) {
+					myTable+="D";
+				}
+				else if(myArray[i][j] == TileState.Grass) {
+					myTable+="G";
+				}
+				else if(myArray[i][j] == TileState.Cactus){
+					myTable+="C";
+				}
+				else if(myArray[i][j] == TileState.Rock){
+					myTable+="R";
+				}
+				else {
+					myTable+="?"
+				}
+				myTable+="</td>";
+			}
+			myTable+="</tr>"; 
+		}
+		myTable+="</table>";
+		document.getElementById('tablePrint').innerHTML = myTable; 
+	</script>
+	
+</html>
