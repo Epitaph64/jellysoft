@@ -8,7 +8,8 @@
 TileState = {
 	Dirt   : 0,
 	Grass  : 1,
-	Cactus : 2
+	Cactus : 2,
+	Rock   : 3
 }
 
 function generate(hardness){
@@ -17,6 +18,8 @@ function generate(hardness){
 	
 	for(i = 0; i < 24; i++) {
 		grid[i] = new array(24);
+		
+		// If you want to insert custom values, remove this for loop and hard code the values in after the i for loop ends 
 		for(j = 0; j < 24; j++) {
 			grid[i][j] = Dirt; 
 		}
