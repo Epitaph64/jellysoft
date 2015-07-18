@@ -5,12 +5,46 @@ window.onload = function() {
 
     var game = new Phaser.Game(1024, 768, Phaser.AUTO, "game", { preload: preload, create: create, update: update }, false, false);
 
+    var tileSize = 32;
+    var wTiles = 24;
+    var hTiles = 24;
+
+    var mouse_pressed = false;
+    var mouse_x = 0;
+    var mouse_y = 0;
+
     function preload () {
         //game.load.spritesheet('tileset', '/img/tileset.png', 32, 32);
+        game.load.image('imgBabySaguaro', 'img/cactus/babysaguaro.png');
+        game.load.image('imgBarrel', 'img/cactus/barrel.png');
+        game.load.image('imgPricklyPear', 'img/cactus/pricklypear.png');
+        game.load.image('imgTallSaguaro', 'img/cactus/tallsaguaro.png');
     }
 
     function create () {
 
+        // generates basic map for testing
+        for (var x = 0; x < wTiles; x++) {
+            for (var y = 0; y < hTiles; y++) {
+                var r = Math.floor(Math.random() * 16);
+                switch(r) {
+                    case 0:
+                        var imgTallSaguaro = game.add.sprite(x * 32, y * 32, 'imgTallSaguaro');
+                        break;
+                    case 1:
+                        var imgPricklyPear = game.add.sprite(x * 32, y * 32, 'imgPricklyPear');
+                        break;
+                    case 2:
+                        var imgBarrel = game.add.sprite(x * 32, y * 32, 'imgBarrel');
+                        break;
+                    case 3:
+                        var imgBabySaguaro = game.add.sprite(x * 32, y * 32, 'imgBabySaguaro');
+                        break;
+                }
+            }
+        }
+
+        /*
         //	Enable p2 physics
         game.physics.startSystem(Phaser.Physics.P2JS);
 
@@ -59,9 +93,26 @@ window.onload = function() {
         game.physics.p2.enable(player);
         player.body.setZeroDamping();
         player.body.fixedRotation = true;
+        */
     }
 
     function update () {
+        if (game.input.activePointer.isDown) {
+            if (!mouse_pressed) {
+                mouse_pressed = true;
+                mouse_x = game.input.mousePointer.x;
+                mouse_y = game.input.mousePointer.y;
+                if (mouse_x < tileSize * wTiles) {
+                    mouse_click_game(mouse_x, mouse_y);
+                } else {
+                    mouse_click_gui(mouse_x, mouse_y);
+                }
+            }
+        } else {
+            mouse_pressed = false;
+        }
+
+        /*
         player.body.setZeroVelocity();
         if (game.input.keyboard.isDown(Phaser.Keyboard.A)) {
             move_left();
@@ -73,6 +124,17 @@ window.onload = function() {
         } else if (game.input.keyboard.isDown(Phaser.Keyboard.S)) {
             move_down();
         }
+        */
+    }
+
+    // mouse click within game area panel
+    function mouse_click_game(mx, my) {
+        console.log('Clicked on tile at (' + Math.floor(mx / 32) + ', ' + Math.floor(my / 32) + ').');
+    }
+
+    // mouse click within GUI panel
+    function mouse_click_gui(mx, my) {
+        console.log('Clicked at coords (' + mx + ', ' + my + ').');
     }
 
     function move_left () {
